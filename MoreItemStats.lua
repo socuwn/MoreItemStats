@@ -16,6 +16,7 @@ function stat_match(stat, str)
     local STAT_PATTERNS = {
         "[-+]?(%d+) " .. stat,
         "(%d+) " .. stat,
+        "[-+]?(%d+) to all stats",
         stat .. " [-+]?(%d+)",
         stat .. " by (%d+)"
     }
