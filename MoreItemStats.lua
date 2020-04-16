@@ -32,17 +32,20 @@ GameTooltip:SetScript("OnUpdate",
                 local font_string_left = _G["GameTooltipTextLeft"..i] 
                 local font_string_right = _G["GameTooltipTextRight"..i] 
                 local text = font_string_left:GetText()
-                if     string.find(text, "Agility") then
-                    -- TODO: more errorchecks if text is actually a number
-                    agility = agility + string.match(text, "%d+")
-                elseif string.find(text, "Intellect") then
-                    intellect = intellect + string.match(text, "%d+")
-                elseif string.find(text, "Spirit") then
-                    spirit = spirit + string.match(text, "%d+")
-                elseif string.find(text, "Stamina") then
-                    stamina = stamina + string.match(text, "%d+")
-                elseif string.find(text, "Strength") then
-                    strength = strength + string.match(text, "%d+")
+
+                -- errorcheck if text is actually a number (filters out e.g. scrolls)
+                if string.match(text, "%d+") then 
+                    if     string.find(text, "Agility") then
+                        agility = agility + string.match(text, "%d+")
+                    elseif string.find(text, "Intellect") then
+                        intellect = intellect + string.match(text, "%d+")
+                    elseif string.find(text, "Spirit") then
+                        spirit = spirit + string.match(text, "%d+")
+                    elseif string.find(text, "Stamina") then
+                        stamina = stamina + string.match(text, "%d+")
+                    elseif string.find(text, "Strength") then
+                        strength = strength + string.match(text, "%d+")
+                    end
                 end
             end
 
