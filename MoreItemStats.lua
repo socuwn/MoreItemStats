@@ -1,5 +1,5 @@
 
-local current_item_name = ""
+local current_name = ""
 local contrast = 150
 
 local STATS = {
@@ -42,21 +42,28 @@ GameTooltip:SetScript("OnShow",
 -- Main functionality
 GameTooltip:SetScript("OnUpdate", 
     function ()
-        name, link = GameTooltip:GetItem()
+        local valid = false
         local agility = 0
         local intellect = 0
         local spirit = 0
         local stamina = 0
         local strength = 0
         local _, class_name, _ = UnitClass("player")
-        local race_name = UnitRace("player");
+        local race_name = UnitRace("player")
 
-        -- gametooltip is an referring to an item
-        if link and name ~= current_item_name then
-            -- update in case something goes wrong 
-            -- (prevents entering this 'if' many times if script fails)
-            current_item_name = name
+        item_name, item_link = GameTooltip:GetItem()
+        spell_name, spell_rank = GameTooltip:GetSpell()
 
+        if (item_link and item_name ~= current_name) then
+            valid = true
+            current_name = item_name
+        elseif (spell_name and spell_name ~= current_name) then
+            valid = true
+            current_name = spell_name
+        end
+
+        if valid then
+            valid = false
             -- scan tooltip for stats
             for i=1, GameTooltip:NumLines() do 
                 local font_string_left = _G["GameTooltipTextLeft"..i] 
@@ -204,7 +211,5 @@ GameTooltip:SetScript("OnUpdate",
             -- Call show to resize tooltip frame
             GameTooltip:Show()
         end
-
-        current_item_name = name
     end
 )
