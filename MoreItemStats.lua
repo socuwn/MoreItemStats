@@ -2,6 +2,14 @@
 local current_item_name = ""
 local contrast = 150
 
+-- Clear current item on show
+GameTooltip:SetScript("OnShow", 
+    function ()
+        current_item_name = ""
+    end
+)
+
+-- Main functionality
 GameTooltip:SetScript("OnUpdate", 
     function ()
         name, link = GameTooltip:GetItem()
@@ -12,7 +20,11 @@ GameTooltip:SetScript("OnUpdate",
         local strength = 0
         local _, class_name, _ = UnitClass("player")
         local race_name = UnitRace("player");
-        if name and name ~= current_item_name then
+
+        -- gametooltip is an referring to an item
+        if link and name ~= current_item_name then
+            -- update in case something goes wrong 
+            -- (prevents entering this 'if' many times if script fails)
             current_item_name = name
             
             -- scan tooltip for stats
@@ -33,7 +45,6 @@ GameTooltip:SetScript("OnUpdate",
                 end
             end
 
-            --GameTooltip:AddLine("RATED", 0.7, 0.7, 0.7)
             if agility ~= 0 then
                 r = 218/contrast
                 g = 124/contrast
@@ -154,9 +165,11 @@ GameTooltip:SetScript("OnUpdate",
                     GameTooltip:AddLine("  block: +" .. string.format("%0.2f", strength/20), r, g, b)
                 end
             end
-
+            
+            -- Call show to resize tooltip frame
             GameTooltip:Show()
         end
+        
         current_item_name = name
     end
 )
