@@ -21,15 +21,15 @@ GameTooltip:SetScript("OnUpdate",
                 local font_string_right = _G["GameTooltipTextRight"..i] 
                 local text = font_string_left:GetText()
                 if     string.find(text, "Agility") then
-                    agility = string.match(text, "%d+")
+                    agility = agility + string.match(text, "%d+")
                 elseif string.find(text, "Intellect") then
-                    intellect = string.match(text, "%d+")
+                    intellect = intellect + string.match(text, "%d+")
                 elseif string.find(text, "Spirit") then
-                    spirit = string.match(text, "%d+")
+                    spirit = spirit + string.match(text, "%d+")
                 elseif string.find(text, "Stamina") then
-                    stamina = string.match(text, "%d+")
+                    stamina = stamina + string.match(text, "%d+")
                 elseif string.find(text, "Strength") then
-                    strength = string.match(text, "%d+")
+                    strength = strength + string.match(text, "%d+")
                 end
             end
 
