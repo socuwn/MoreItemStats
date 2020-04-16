@@ -2,6 +2,36 @@
 local current_item_name = ""
 local contrast = 150
 
+local STATS = {
+    "Agility",
+    "Intellect",
+    "Spirit",
+    "Stamina",
+    "Strength"
+}
+
+-- Stat match helper
+function stat_match(stat, str)
+    -- generate stat patterns
+    local STAT_PATTERNS = {
+        "[-+]?(%d+) " .. stat,
+        "(%d+) " .. stat,
+        stat .. " by (%d+)"
+    }
+    for i, s in pairs(STATS) do
+        STAT_PATTERNS[#STAT_PATTERNS+1] = "(%d+) " .. s .. " and " .. stat
+    end
+
+    -- search for match
+    for i, pattern in pairs(STAT_PATTERNS) do
+        match = string.match(str, pattern)
+        if match then
+            return match
+        end
+    end
+    return nil
+end
+
 -- Clear current item on show
 GameTooltip:SetScript("OnShow", 
     function ()
@@ -26,26 +56,27 @@ GameTooltip:SetScript("OnUpdate",
             -- update in case something goes wrong 
             -- (prevents entering this 'if' many times if script fails)
             current_item_name = name
-            
+
             -- scan tooltip for stats
             for i=1, GameTooltip:NumLines() do 
                 local font_string_left = _G["GameTooltipTextLeft"..i] 
                 local font_string_right = _G["GameTooltipTextRight"..i] 
                 local text = font_string_left:GetText()
 
-                -- errorcheck if text is actually a number (filters out e.g. scrolls)
-                if string.match(text, "%d+") then 
-                    if     string.find(text, "Agility") then
-                        agility = agility + string.match(text, "%d+")
-                    elseif string.find(text, "Intellect") then
-                        intellect = intellect + string.match(text, "%d+")
-                    elseif string.find(text, "Spirit") then
-                        spirit = spirit + string.match(text, "%d+")
-                    elseif string.find(text, "Stamina") then
-                        stamina = stamina + string.match(text, "%d+")
-                    elseif string.find(text, "Strength") then
-                        strength = strength + string.match(text, "%d+")
-                    end
+                if stat_match("Agility", text) then
+                    agility = agility + stat_match("Agility", text)
+                end
+                if stat_match("Intellect", text) then
+                    intellect = intellect + stat_match("Intellect", text)
+                end
+                if stat_match("Spirit", text) then
+                    spirit = spirit + stat_match("Spirit", text)
+                end
+                if stat_match("Stamina", text) then
+                    stamina = stamina + stat_match("Stamina", text)
+                end
+                if stat_match("Strength", text) then
+                    strength = strength + stat_match("Strength", text)
                 end
             end
 
