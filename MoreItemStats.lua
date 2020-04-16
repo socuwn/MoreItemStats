@@ -16,6 +16,7 @@ function stat_match(stat, str)
     local STAT_PATTERNS = {
         "[-+]?(%d+) " .. stat,
         "(%d+) " .. stat,
+        stat .. " [-+]?(%d+)",
         stat .. " by (%d+)"
     }
     for i, s in pairs(STATS) do
