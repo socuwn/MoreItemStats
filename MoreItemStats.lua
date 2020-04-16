@@ -33,6 +33,7 @@ GameTooltip:SetScript("OnUpdate",
                 local font_string_right = _G["GameTooltipTextRight"..i] 
                 local text = font_string_left:GetText()
                 if     string.find(text, "Agility") then
+                    -- TODO: more errorchecks if text is actually a number
                     agility = agility + string.match(text, "%d+")
                 elseif string.find(text, "Intellect") then
                     intellect = intellect + string.match(text, "%d+")
@@ -97,22 +98,22 @@ GameTooltip:SetScript("OnUpdate",
                 -- Spell Crit and Mana
                 if     class_name == "DRUID" then
                     GameTooltip:AddLine("  mana: +" .. string.format("%d", intellect*15), r, g, b)
-                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/60), r, g, b)
+                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/60) .. "%", r, g, b)
                 elseif class_name == "MAGE" then
                     GameTooltip:AddLine("  mana: +" .. string.format("%d", intellect*15), r, g, b)
-                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/59.5), r, g, b)
+                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/59.5) .. "%", r, g, b)
                 elseif class_name == "PALADIN" then
                     GameTooltip:AddLine("  mana: +" .. string.format("%d", intellect*15), r, g, b)
-                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/54), r, g, b)
+                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/54) .. "%", r, g, b)
                 elseif class_name == "PRIEST" then
                     GameTooltip:AddLine("  mana: +" .. string.format("%d", intellect*15), r, g, b)
-                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/59.2), r, g, b)
+                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/59.2) .. "%", r, g, b)
                 elseif class_name == "SHAMAN" then
                     GameTooltip:AddLine("  mana: +" .. string.format("%d", intellect*15), r, g, b)
-                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/59.5), r, g, b)
+                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/59.5) .. "%", r, g, b)
                 elseif class_name == "WARLOCK" then
                     GameTooltip:AddLine("  mana: +" .. string.format("%d", intellect*15), r, g, b)
-                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/60.6), r, g, b)
+                    GameTooltip:AddLine("  spell crit: +" .. string.format("%0.2f", intellect/60.6) .. "%", r, g, b)
                 end
             end
 
@@ -122,15 +123,15 @@ GameTooltip:SetScript("OnUpdate",
                 b = 154/contrast
                 -- Mana per 2sec
                 if class_name == "DRUID" then
-                    GameTooltip:AddLine("  mana/2s: +" .. string.format("%0.2f", spirit/4.5 + 15), r, g, b)
+                    GameTooltip:AddLine("  mana/s: +" .. string.format("%0.2f", (spirit/4.5 + 15)/2), r, g, b)
                 elseif class_name == "HUNTER" 
                 or class_name == "PALADIN"
                 or class_name == "WARLOCK" then
-                    GameTooltip:AddLine("  mana/2s: +" .. string.format("%0.2f", spirit/5 + 15), r, g, b)
+                    GameTooltip:AddLine("  mana/s: +" .. string.format("%0.2f", (spirit/5 + 15)/2), r, g, b)
                 elseif class_name == "MAGE" then
-                    GameTooltip:AddLine("  mana/2s: +" .. string.format("%0.2f", spirit/4 + 15), r, g, b)
+                    GameTooltip:AddLine("  mana/s: +" .. string.format("%0.2f", (spirit/4 + 15)/2), r, g, b)
                 elseif class_name == "SHAMAN" then
-                    GameTooltip:AddLine("  mana/2s: +" .. string.format("%0.2f", spirit/5 + 17), r, g, b)
+                    GameTooltip:AddLine("  mana/s: +" .. string.format("%0.2f", (spirit/5 + 17)/2), r, g, b)
                 end
             end
 
@@ -162,14 +163,14 @@ GameTooltip:SetScript("OnUpdate",
                 if class_name == "PALADIN" 
                 or class_name == "SHAMAN" 
                 or class_name == "WARRIOR" then
-                    GameTooltip:AddLine("  block: +" .. string.format("%0.2f", strength/20), r, g, b)
+                    GameTooltip:AddLine("  block damage: +" .. string.format("%0.2f", strength/20), r, g, b)
                 end
             end
             
             -- Call show to resize tooltip frame
             GameTooltip:Show()
         end
-        
+
         current_item_name = name
     end
 )
