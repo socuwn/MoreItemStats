@@ -142,6 +142,8 @@ GameTooltip:SetScript("OnUpdate",
                 if     class_name == "DRUID" then
                     GameTooltip:AddLine("  mana:          +" .. string.format("%d", intellect*15), r, g, b)
                     GameTooltip:AddLine("  spell crit:    +" .. string.format("%0.2f", intellect/60) .. "%", r, g, b)
+                elseif class_name == "HUNTER" then
+                    GameTooltip:AddLine("  mana:          +" .. string.format("%d", intellect*15), r, g, b)
                 elseif class_name == "MAGE" then
                     GameTooltip:AddLine("  mana:          +" .. string.format("%d", intellect*15), r, g, b)
                     GameTooltip:AddLine("  spell crit:    +" .. string.format("%0.2f", intellect/59.5) .. "%", r, g, b)
