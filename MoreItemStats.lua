@@ -35,18 +35,12 @@ function stat_match(stat, str)
 end
 
 -- Clear current item on show
-GameTooltip:SetScript("OnShow", 
+GameTooltip:SetScript("OnShow",
     function ()
         current_name = ""
     end
 )
 
--- Clear current item on show
-GameTooltip:SetScript("OnHide", 
-    function ()
-        current_name = ""
-    end
-)
 -- Main functionality
 GameTooltip:SetScript("OnUpdate", 
     function ()

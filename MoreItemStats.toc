@@ -1,7 +1,7 @@
 ## Interface: 11304
 ## Title: MoreItemStats
-## Notes: Calculates and displays rating for stats on items tooltip
-## Version: 1.0.0
+## Notes: Calculates and displays secondary stats in tooltip
+## Version: 1.2.4
 
 MoreItemStats.lua
 MoreItemStats.xml
